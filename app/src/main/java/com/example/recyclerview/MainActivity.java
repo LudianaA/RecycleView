@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            reset_values(item);
             return true;
         }
 
@@ -95,5 +96,20 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+
+    public void reset_values(MenuItem item) {
+        mWordList.clear();
+        for (int i = 0; i < 20; i++) {
+            mWordList.addLast("Word " + i);
+        }
+        mRecyclerView = findViewById(R.id.recyclerview);
+        // Create an adapter and supply the data to be displayed.
+        mAdapter = new WordListAdapter(this, mWordList);
+        // Connect the adapter with the recycler view.
+        mRecyclerView.setAdapter(mAdapter);
+        // Give the recycler view a default layout manager.
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
